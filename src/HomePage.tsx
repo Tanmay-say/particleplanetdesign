@@ -24,23 +24,30 @@ export default function HomePage() {
     
     console.log('Adjusting camera...');
     
+    // Check if we're on mobile
+    const isMobile = window.innerWidth <= 768;
+    
     // Try to trigger zoom out via events
     try {
       // Method 1: Try to simulate mouse wheel events for zoom
       const canvas = document.querySelector('canvas');
       if (canvas) {
         // Create zoom out effect by dispatching wheel events
-        for (let i = 0; i < 2; i++) {
+        // Use more zoom out for mobile devices
+        const zoomIterations = isMobile ? 3 : 2;
+        const deltaY = isMobile ? 500 : 300;
+        
+        for (let i = 0; i < zoomIterations; i++) {
           setTimeout(() => {
             const wheelEvent = new WheelEvent('wheel', {
-              deltaY: 300, // Positive value for zoom out
+              deltaY: deltaY, // Positive value for zoom out
               bubbles: true,
               cancelable: true
             });
             canvas.dispatchEvent(wheelEvent);
           }, i * 100);
         }
-        console.log('Zoom out events dispatched');
+        console.log(`Zoom out events dispatched (mobile: ${isMobile})`);
       }
     } catch (error) {
       console.error('Error with zoom events:', error);
@@ -57,7 +64,7 @@ export default function HomePage() {
     <div className="App">
       {isLoading && (
         <div className="loading">
-          <div className="loading-text">Loading 3D Scene...</div>
+          <div className="loading-text">Welcome to Space ...</div>
         </div>
       )}
       {error && (

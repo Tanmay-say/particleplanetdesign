@@ -265,14 +265,140 @@
   .chatbox {
     border-radius: 0;
     height: 100vh;
+    height: 100dvh;
     width: 100vw;
   }
   
   .chatbox-header {
     border-radius: 0;
+    padding: 15px;
+  }
+  
+  .bot-avatar {
+    width: 35px;
+    height: 35px;
+    font-size: 20px;
+  }
+  
+  .bot-details h3 {
+    font-size: 14px;
+  }
+  
+  .status {
+    font-size: 11px;
+  }
+  
+  .close-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+  
+  .chatbox-messages {
+    padding: 15px;
+  }
+  
+  .message-content {
+    max-width: 85%;
+    padding: 10px 14px;
+  }
+  
+  .message-content p {
+    font-size: 13px;
+  }
+  
+  .timestamp {
+    font-size: 10px;
+  }
+  
+  .chatbox-input {
+    padding: 15px;
+    padding-bottom: max(15px, env(safe-area-inset-bottom));
+  }
+  
+  .input-container {
+    gap: 10px;
+  }
+  
+  .message-input {
+    font-size: 13px;
+    padding: 10px 14px;
+  }
+  
+  .send-btn {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .send-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .chatbox-header {
+    padding: 12px;
+  }
+  
+  .bot-avatar {
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+  }
+  
+  .bot-details h3 {
+    font-size: 13px;
+  }
+  
+  .status {
+    font-size: 10px;
+  }
+  
+  .close-btn {
+    width: 26px;
+    height: 26px;
+    font-size: 12px;
+  }
+  
+  .chatbox-messages {
+    padding: 12px;
   }
   
   .message-content {
     max-width: 90%;
+    padding: 8px 12px;
+  }
+  
+  .message-content p {
+    font-size: 12px;
+  }
+  
+  .timestamp {
+    font-size: 9px;
+  }
+  
+  .chatbox-input {
+    padding: 12px;
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+  }
+  
+  .input-container {
+    gap: 8px;
+  }
+  
+  .message-input {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+  
+  .send-btn {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .send-btn svg {
+    width: 16px;
+    height: 16px;
   }
 }

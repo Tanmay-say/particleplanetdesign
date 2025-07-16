@@ -20,6 +20,25 @@
   width: 100% !important;
   height: 100% !important;
   display: block;
+  touch-action: manipulation;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .App {
+    height: 100vh;
+    height: 100dvh; /* Use dynamic viewport height on mobile */
+    overflow: hidden;
+  }
+  
+  .spline-container {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+  
+  .spline-container canvas {
+    touch-action: pan-x pan-y pinch-zoom;
+  }
 }
 
 /* Loading state */
@@ -41,6 +60,8 @@
   font-size: 24px;
   font-family: Arial, sans-serif;
   animation: pulse 1.5s infinite;
+  padding: 0 20px;
+  text-align: center;
 }
 
 @keyframes pulse {
@@ -67,5 +88,17 @@
   font-size: 24px;
   font-family: Arial, sans-serif;
   text-align: center;
+  padding: 0 20px;
+}
+
+/* Mobile responsive text sizes */
+@media (max-width: 768px) {
+  .loading-text {
+    font-size: 18px;
+  }
+  
+  .error-text {
+    font-size: 18px;
+  }
 }
 
