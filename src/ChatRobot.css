@@ -1,0 +1,14 @@
+/* ChatRobot component styling */
+.chat-robot {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 300px;
+  height: 300px;
+  z-index: 2000;
+}
+
+.chat-robot canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
