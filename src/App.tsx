@@ -1,44 +1,68 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Spline from '@splinetool/react-spline';
 import './App.css';
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
   const onLoad = (spline: any) => {
-    const camera = spline.camera;
+    console.log('Spline scene loaded successfully!');
+    setIsLoading(false);
     
-    // Log current camera settings to help you adjust
+    // Access the camera for adjustments
+    const camera = spline.camera;
     console.log('Current camera position:', camera.position);
     console.log('Current camera rotation:', camera.rotation);
     
     // UNCOMMENT AND ADJUST THESE VALUES AS NEEDED:
     
-    // Option 1: Set specific camera position
-    // camera.position.set(100, 200, 300); // Adjust x, y, z values
+    // 🔍 ZOOM CONTROLS:
+    // camera.position.multiplyScalar(0.7);  // Zoom IN (closer) - use values < 1
+    // camera.position.multiplyScalar(1.3);  // Zoom OUT (farther) - use values > 1
     
-    // Option 2: Zoom in/out from current position
-    // camera.position.multiplyScalar(0.7); // Zoom in (closer)
-    // camera.position.multiplyScalar(1.3); // Zoom out (farther)
+    // 📍 POSITION CONTROLS:
+    // camera.position.set(100, 200, 300);   // Set exact position (x, y, z)
+    // camera.position.x += 50;              // Move RIGHT
+    // camera.position.x -= 50;              // Move LEFT
+    // camera.position.y += 30;              // Move UP
+    // camera.position.y -= 30;              // Move DOWN
+    // camera.position.z += 100;             // Move FORWARD
+    // camera.position.z -= 100;             // Move BACKWARD
     
-    // Option 3: Move camera relative to current position
-    // camera.position.x += 50; // Move right
-    // camera.position.y += 30; // Move up
-    // camera.position.z += 100; // Move forward
+    // 👀 LOOK AT CONTROLS:
+    // camera.lookAt(0, 0, 0);               // Look at center
+    // camera.lookAt(50, 0, 0);              // Look at point to the right
     
-    // Option 4: Change what the camera looks at
-    // camera.lookAt(0, 0, 0); // Look at center
-    // camera.lookAt(50, 0, 0); // Look at point to the right
-    
-    // Example: Common homepage adjustments
-    // camera.position.multiplyScalar(0.8); // Zoom in slightly
-    // camera.position.y += 20; // Move camera up a bit
+    // 🎯 COMMON HOMEPAGE ADJUSTMENTS:
+    // camera.position.multiplyScalar(0.8);  // Slight zoom in
+    // camera.position.y += 20;              // Lift camera up slightly
+    // camera.lookAt(0, 0, 0);               // Ensure looking at center
+  };
+
+  const onError = (error: any) => {
+    console.error('Spline scene failed to load:', error);
+    setError('Failed to load 3D scene');
+    setIsLoading(false);
   };
 
   return (
     <div className="App">
+      {isLoading && (
+        <div className="loading">
+          <div className="loading-text">Loading 3D Scene...</div>
+        </div>
+      )}
+      {error && (
+        <div className="error">
+          <div className="error-text">{error}</div>
+        </div>
+      )}
       <div className="spline-container">
         <Spline 
           scene="https://prod.spline.design/9E7HoXAsefMIS6Gc/scene.splinecode" 
           onLoad={onLoad}
+          onError={onError}
         />
       </div>
     </div>
