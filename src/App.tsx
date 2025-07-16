@@ -1,43 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Spline from '@splinetool/react-spline';
 import './App.css';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const splineRef = useRef<any>(null);
 
   const onLoad = (spline: any) => {
-    console.log('Spline scene loaded successfully!');
+    console.log('Spline scene loaded!');
     setIsLoading(false);
+    splineRef.current = spline;
     
-    // Access the camera for adjustments
-    const camera = spline.camera;
-    console.log('Current camera position:', camera.position);
-    console.log('Current camera rotation:', camera.rotation);
+    // Simple approach - try to zoom out immediately
+    setTimeout(() => {
+      adjustCamera();
+    }, 500);
+  };
+  
+  const adjustCamera = () => {
+    const spline = splineRef.current;
+    if (!spline) return;
     
-    // UNCOMMENT AND ADJUST THESE VALUES AS NEEDED:
+    console.log('Adjusting camera...');
     
-    // 🔍 ZOOM CONTROLS:
-    // camera.position.multiplyScalar(0.7);  // Zoom IN (closer) - use values < 1
-    // camera.position.multiplyScalar(1.3);  // Zoom OUT (farther) - use values > 1
-    
-    // 📍 POSITION CONTROLS:
-    // camera.position.set(100, 200, 300);   // Set exact position (x, y, z)
-    // camera.position.x += 50;              // Move RIGHT
-    // camera.position.x -= 50;              // Move LEFT
-    // camera.position.y += 30;              // Move UP
-    // camera.position.y -= 30;              // Move DOWN
-    // camera.position.z += 100;             // Move FORWARD
-    // camera.position.z -= 100;             // Move BACKWARD
-    
-    // 👀 LOOK AT CONTROLS:
-    // camera.lookAt(0, 0, 0);               // Look at center
-    // camera.lookAt(50, 0, 0);              // Look at point to the right
-    
-    // 🎯 COMMON HOMEPAGE ADJUSTMENTS:
-    // camera.position.multiplyScalar(0.8);  // Slight zoom in
-    // camera.position.y += 20;              // Lift camera up slightly
-    // camera.lookAt(0, 0, 0);               // Ensure looking at center
+    // Try to trigger zoom out via events
+    try {
+      // Method 1: Try to simulate mouse wheel events for zoom
+      const canvas = document.querySelector('canvas');
+      if (canvas) {
+        // Create zoom out effect by dispatching wheel events
+        for (let i = 0; i < 2; i++) {
+          setTimeout(() => {
+            const wheelEvent = new WheelEvent('wheel', {
+              deltaY: 300, // Positive value for zoom out
+              bubbles: true,
+              cancelable: true
+            });
+            canvas.dispatchEvent(wheelEvent);
+          }, i * 100);
+        }
+        console.log('Zoom out events dispatched');
+      }
+    } catch (error) {
+      console.error('Error with zoom events:', error);
+    }
   };
 
   const onError = (error: any) => {
